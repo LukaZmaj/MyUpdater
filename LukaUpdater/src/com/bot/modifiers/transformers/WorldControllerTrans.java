@@ -14,7 +14,6 @@ import com.bot.utils.JarUtils;
 public class WorldControllerTrans extends AbstractTransformer {
 	@Override
 	protected boolean canRun(ClassNode node) {
-		String previous = null;
 			if(node.superName.equals("java/lang/Object")) {
 				for(final Object fns : node.fields) { 
 					final FieldNode f = (FieldNode) fns;

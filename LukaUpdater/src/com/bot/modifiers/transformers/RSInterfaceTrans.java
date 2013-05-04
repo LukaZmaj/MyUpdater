@@ -12,11 +12,10 @@ import com.bot.utils.ASMUtils;
 import com.bot.utils.JarUtils;
 
 public class RSInterfaceTrans extends AbstractTransformer {
-
+	private int counter = 0;
 	@Override
 	protected boolean canRun(ClassNode node) {
-		int counter = 0;
-		String previous = null;
+		counter = 0;
 		for(final Object mns : node.methods) { 
 			final MethodNode mn = (MethodNode) mns;
 			if(methodContains("getfield iconst_0 bipush iastore ALOAD getfield", mn)) {	

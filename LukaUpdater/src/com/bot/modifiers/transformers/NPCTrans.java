@@ -10,10 +10,10 @@ import com.bot.modifiers.Hook;
 import com.bot.utils.JarUtils;
 
 public class NPCTrans extends AbstractTransformer {
-
+	private int total = 0;
 	@Override
 	protected boolean canRun(ClassNode node) {
-		int total = 0;
+		total = 0;
 		boolean EntityDefFound = false;
 		if(node.superName.equals(Hook.map.get("Entity"))) {
 			ListIterator<FieldNode> fields = node.fields.listIterator();

@@ -16,8 +16,7 @@ import com.bot.utils.JarUtils;
 public class ClientTrans extends AbstractTransformer {
 
 	@Override
-	protected boolean canRun(ClassNode node) {
-		
+	protected boolean canRun(ClassNode node) {	
 		return node.name.equals("client") ;
 	}
 

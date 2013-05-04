@@ -13,9 +13,7 @@ import com.bot.utils.JarUtils;
 public class EntityTrans extends AbstractTransformer {
 	@Override
 	protected boolean canRun(ClassNode node) {
-
 		ListIterator<MethodNode> mns = node.methods.listIterator();
-		String previous = null;
 		while (mns.hasNext()) {
 			MethodNode s = mns.next();
 			if(methodContains("iconst_4 if_icmpge ALOAD getfield iload iaload", s)){
