@@ -8,11 +8,12 @@ import org.objectweb.asm.tree.FieldInsnNode;
 import org.objectweb.asm.tree.MethodNode;
 
 import com.bot.modifiers.AbstractTransformer;
+import com.bot.modifiers.Dependency;
 import com.bot.modifiers.Hook;
 import com.bot.utils.JarUtils;
 
 public class NodeTrans extends AbstractTransformer {
-
+	@Dependency(dependencies ={"Node"})
 	@Override
 	protected boolean canRun(ClassNode node) {
 		for(final Object o : node.methods) { 

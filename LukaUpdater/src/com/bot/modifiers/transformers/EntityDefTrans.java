@@ -11,6 +11,7 @@ import com.bot.modifiers.Hook;
 import com.bot.utils.JarUtils;
 
 public class EntityDefTrans extends AbstractTransformer {
+	
 	@Override
 	protected boolean canRun(ClassNode node) {
 		for(final Object o : node.methods) { 
