@@ -72,15 +72,14 @@ public class Updater {
 	public Updater() throws InstantiationException, IllegalAccessException,
 			ClassNotFoundException, IOException, InterruptedException {
 		System.out.println("Updater");
-		CLASSES = JarUtils.parseJar(new JarFile(
-				"C:\\Users\\Luka\\Downloads\\doop.jar"));
+		CLASSES = JarUtils.parseJar(new JarFile(""));
 		System.out.println("UpdaterLog: " + CLASSES.values().size()
 				+ " Classes parsed\n");
 		this.loadAnaylsers();
 		this.runAnaysers();
 		this.SecondaryloadAnaylsers();
 		this.runSecondaryAnaysers();
-		final File gamepack = new File("C:\\Users\\Luka\\Desktop\\inject.jar");
+		final File gamepack = new File("");
 		JarUtils.dumpClasses(CLASSES, gamepack.toPath());
 		System.out.println("Fields Hooked: " + fieldsHooked);
 
