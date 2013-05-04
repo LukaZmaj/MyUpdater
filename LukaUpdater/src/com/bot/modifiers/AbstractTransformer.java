@@ -48,9 +48,9 @@ public abstract class AbstractTransformer {
 						FieldInsnNode f = (FieldInsnNode) result.get(0)[index];				
 						searchResult = f.name;
 					}
-					List<AbstractInsnNode[]> secondResult = searcher.search(firstRegex);
+					List<AbstractInsnNode[]> secondResult = searcher.search(secondRegex);
 					if(secondResult.size() != 0){
-						FieldInsnNode fs = (FieldInsnNode) secondResult.get(0)[index];
+						FieldInsnNode fs = (FieldInsnNode) secondResult.get(0)[sindex];
 						secondSearchResult = fs.name;
 					}
 				} catch (NullPointerException | ClassCastException  x) {}
@@ -85,18 +85,13 @@ public abstract class AbstractTransformer {
 						FieldInsnNode f = (FieldInsnNode) result.get(0)[index];
 						searchResult = f.name;
 					}
-					List<AbstractInsnNode[]> secondResult = searcher.search(firstRegex);
+					List<AbstractInsnNode[]> secondResult = searcher.search(secondRegex);
 					if(secondResult.size() != 0){
-						FieldInsnNode fs = (FieldInsnNode) secondResult.get(0)[index];
+						FieldInsnNode fs = (FieldInsnNode) secondResult.get(0)[sindex];
 						secondSearchResult = fs.name;
 					}
 				} catch (NullPointerException | ClassCastException | IndexOutOfBoundsException  x) {}
 			}catch(ConcurrentModificationException fd){}
-		}
-		if(searchResult != null) {
-			if(searchResult.equals(secondSearchResult)) {
-				return searchResult;
-			}
 		}
 		return searchResult;
 	}

@@ -48,13 +48,14 @@ public class EntityDefTrans extends AbstractTransformer {
 					if(f.desc.equals("[Ljava/lang/String;")) {
 						JarUtils.addGetterMethod(node, f, "getActions", f.desc);
 					}
-					if(hook.equals("ID")) {
-						if(f.desc.equals("J")) {
-							JarUtils.addGetterMethod(node, f, "getID", f.desc);
-						}
-					}
-
 				}
+				if(hook.equals("ID")) {
+					if(f.desc.equals("J")) {
+						JarUtils.addGetterMethod(node, f, "getID", f.desc);
+					}
+				}
+
+
 			}
 		}
 		for(String hook : Hook.fields) {

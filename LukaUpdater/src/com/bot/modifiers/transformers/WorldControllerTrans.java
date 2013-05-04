@@ -43,7 +43,7 @@ public class WorldControllerTrans extends AbstractTransformer {
 							String object5ClassName = f.desc;
 							object5ClassName = object5ClassName.replace("[L", "");
 							object5ClassName = object5ClassName.replace(";", "");
-							Hook.map.put("Obj5", node.name);
+							Hook.map.put("Obj5", object5ClassName);
 						}
 					}
 				}
