@@ -15,13 +15,12 @@ public class NodeSubTrans extends AbstractTransformer {
 
 	@Override
 	protected boolean canRun(ClassNode node) {
-		ListIterator<MethodNode> mns = node.methods.listIterator();
 		String previous = null;
-		while (mns.hasNext()) {
-			MethodNode s = mns.next();
-			if(methodContains("getfield ifnonnull goto ALOAD getfield ALOAD getfield putfield ALOAD getfield", s)){
-				if(node.superName.equals(Hook.Class_Node)) {
-					Hook.Class_NodeSub = node.name;
+		for(final Object o : node.methods) { 
+			final MethodNode mn = (MethodNode) o;
+			if(methodContains("getfield ifnonnull goto ALOAD getfield ALOAD getfield putfield ALOAD getfield", mn)){
+				if(node.superName.equals(Hook.map.get("Node"))){
+					Hook.map.put("NodeSub", node.name);
 				return true;
 				}
 			}

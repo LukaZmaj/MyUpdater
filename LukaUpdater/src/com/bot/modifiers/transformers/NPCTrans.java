@@ -15,11 +15,11 @@ public class NPCTrans extends AbstractTransformer {
 	protected boolean canRun(ClassNode node) {
 		int total = 0;
 		boolean EntityDefFound = false;
-		if(node.superName.equals(Hook.Class_Entity)) {
+		if(node.superName.equals(Hook.map.get("Entity"))) {
 			ListIterator<FieldNode> fields = node.fields.listIterator();
 			while(fields.hasNext()) {
 				FieldNode s = fields.next();
-				if(s.desc.equals("L" + Hook.Class_EntityDef + ";")) {
+				if(s.desc.equals("L" + Hook.map.get("EntityDef") + ";")) {
 					EntityDefFound = true;
 					continue;
 				}
@@ -33,13 +33,14 @@ public class NPCTrans extends AbstractTransformer {
 	@Override
 	protected void runTransformer(ClassNode node) {
 		Log("<----Found Class----> " + node.name);
+		Hook.map.put("NPC" , node.name);
 		JarUtils.injectInterface(node, "com/bot/accessors/NPC");
 		ListIterator<FieldNode> fns = node.fields.listIterator();
 		while (fns.hasNext()) {
 			FieldNode f = fns.next();	
 			for(String hook : Hook.fields) {
 				if(hook.equals("EntityDef")) {
-					if(f.desc.equals("L" + Hook.Class_EntityDef+";")) {
+					if(f.desc.equals("L" + Hook.map.get("EntityDef")+";")) {
 						JarUtils.addGetterMethod(node, f, "getEntityDef", "Lcom/bot/accessors/EntityDef;");
 					}
 				}

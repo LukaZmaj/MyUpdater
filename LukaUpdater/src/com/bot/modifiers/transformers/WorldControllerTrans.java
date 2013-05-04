@@ -14,34 +14,26 @@ import com.bot.utils.JarUtils;
 public class WorldControllerTrans extends AbstractTransformer {
 	@Override
 	protected boolean canRun(ClassNode node) {
-		ListIterator<MethodNode> mns = node.methods.listIterator();
 		String previous = null;
-		while (mns.hasNext()) {
-			MethodNode s = mns.next();
 			if(node.superName.equals("java/lang/Object")) {
-				ListIterator<FieldNode> fns = node.fields.listIterator();
-				while (fns.hasNext()) {
-					FieldNode f = fns.next();	
-					if(f.desc.equals("[[[L" + Hook.Class_Ground+ ";")) {		
+				for(final Object fns : node.fields) { 
+					final FieldNode f = (FieldNode) fns;
+					if(f.desc.equals("[[[L" + Hook.map.get("Ground")+ ";")) {		
 						return true;
 					}
 				}
 			}
-		}
-
-
 		return false;
 	}
 
 	@Override
 	protected void runTransformer(ClassNode node) {
 		Log("<----Found Class----> " + node.name);
-		ListIterator<FieldNode> fns = node.fields.listIterator();
-		while (fns.hasNext()) {
-			FieldNode f = fns.next();	
+		for(final Object fns : node.fields) { 
+			final FieldNode f = (FieldNode) fns;
 			for(String hook : Hook.fields) {
 				if(hook.equals("GroundArray")) {
-					if(f.desc.equals("[[[L" + Hook.Class_Ground + ";" )) {
+					if(f.desc.equals("[[[L" + Hook.map.get("Ground") + ";" )) {
 						JarUtils.addGetterMethod(node, f.name, "getGroundArray", "[[[Lcom/bot/accessors/Ground;");
 					}
 				}
@@ -52,16 +44,13 @@ public class WorldControllerTrans extends AbstractTransformer {
 							String object5ClassName = f.desc;
 							object5ClassName = object5ClassName.replace("[L", "");
 							object5ClassName = object5ClassName.replace(";", "");
-							Hook.Class_Obj5 = object5ClassName;
+						Hook.map.put("Obj5", node.name);
 						}
 					}
 				}
 			}
 		}
 
-		for(String hook : Hook.fields) {
-
-		}
 	}
 
 

@@ -18,8 +18,8 @@ public class GroundTrans extends AbstractTransformer {
 		while (mns.hasNext()) {
 			MethodNode s = mns.next();
 			if(methodContains("iconst_5 anewarray putfield ALOAD iconst_5 newarray", s)){
-				if(node.superName.equals(Hook.Class_Node)) {
-				Hook.Class_Ground = node.name;
+				if(node.superName.equals(Hook.map.get("Node"))) {
+					Hook.map.put("Ground" , node.name);
 				return true;
 				}
 			}

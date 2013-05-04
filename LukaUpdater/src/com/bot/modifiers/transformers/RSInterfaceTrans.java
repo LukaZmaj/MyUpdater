@@ -16,15 +16,13 @@ public class RSInterfaceTrans extends AbstractTransformer {
 	@Override
 	protected boolean canRun(ClassNode node) {
 		int counter = 0;
-		ListIterator<MethodNode> mns = node.methods.listIterator();
 		String previous = null;
-		while (mns.hasNext()) {
-			MethodNode s = mns.next();
-			if(methodContains("getfield iconst_0 bipush iastore ALOAD getfield", s)) {	
+		for(final Object mns : node.methods) { 
+			final MethodNode mn = (MethodNode) mns;
+			if(methodContains("getfield iconst_0 bipush iastore ALOAD getfield", mn)) {	
 				if(node.superName.equals("java/lang/Object")) {
-					ListIterator<FieldNode> fns = node.fields.listIterator();
-					while (fns.hasNext()) {
-						FieldNode f = fns.next();	
+					for(final Object fns : node.fields) { 
+						final FieldNode f = (FieldNode) fns;
 						if(f.desc.equals("[L" + node.name + ";")) {
 							if(ASMUtils.isStatic(f)) {
 								counter++;
@@ -44,9 +42,8 @@ public class RSInterfaceTrans extends AbstractTransformer {
 	protected void runTransformer(ClassNode node) {
 		Log("<----Found Class----> " + node.name);
 		JarUtils.injectInterface(node, "com/bot/accessors/RSInterface");
-		ListIterator<FieldNode> fns = node.fields.listIterator();
-		while (fns.hasNext()) {
-			FieldNode f = fns.next();	
+		for(final Object fns : node.fields) { 
+			final FieldNode f = (FieldNode) fns;
 			for(String hook : Hook.fields) {
 				if(hook.equals("RSInterfaceCache")) {
 					if(f.desc.equals("[[I")) {

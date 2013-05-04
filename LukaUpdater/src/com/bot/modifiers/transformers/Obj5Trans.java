@@ -14,7 +14,7 @@ public class Obj5Trans extends AbstractTransformer {
 
 	@Override
 	protected boolean canRun(ClassNode node) {
-		return node.name.equals(Hook.Class_Obj5);
+		return node.name.equals(Hook.map.get("Obj5"));
 	}
 
 	@Override

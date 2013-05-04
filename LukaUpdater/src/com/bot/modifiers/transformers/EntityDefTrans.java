@@ -24,7 +24,7 @@ public class EntityDefTrans extends AbstractTransformer {
 					while (fns.hasNext()) {
 						FieldNode f = fns.next();	
 						if(f.desc.equals("[L" + node.name + ";")) {					
-						Hook.Class_EntityDef = node.name;
+						Hook.map.put("EntityDef" , node.name);
 						return true;
 						}
 				}

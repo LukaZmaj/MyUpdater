@@ -27,12 +27,12 @@ public abstract class AbstractTransformer {
 	protected abstract boolean canRun(ClassNode node);
 	protected abstract void runTransformer(ClassNode node);
 
-	public void Log(String s) {
+	protected void Log(String s) {
 		System.out.println(s);
 	}
 
 
-	public void getHook(ClassNode node, ClassNode injection, String FirstRegex, String SecondRegex,
+	protected void getHook(ClassNode node, ClassNode injection, String FirstRegex, String SecondRegex,
 			String desc, String methodDesc, String methodName, int index,
 			int sindex) {
 		ListIterator<MethodNode> mns = node.methods.listIterator();
@@ -71,7 +71,7 @@ public abstract class AbstractTransformer {
 		}
 	}
 
-	public boolean methodContains(String regex, MethodNode mn) {
+	protected boolean methodContains(String regex, MethodNode mn) {
 		searcher = new InsnSearcher(mn.instructions);	
 		try{
 			if(searcher.search(regex).size() == 1) {
@@ -82,7 +82,7 @@ public abstract class AbstractTransformer {
 		}		
 		return false;
 	}
-	public String getFieldName(ClassNode node, String FirstRegex, String SecondRegex, int index, int sindex) {
+	protected String getFieldName(ClassNode node, String FirstRegex, String SecondRegex, int index, int sindex) {
 		ListIterator<MethodNode> mns = node.methods.listIterator();
 		String searchResult = null;
 		String secondSearchResult = null;

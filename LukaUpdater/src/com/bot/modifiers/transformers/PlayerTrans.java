@@ -16,17 +16,14 @@ public class PlayerTrans extends AbstractTransformer {
 
 	@Override
 	protected boolean canRun(ClassNode node) {
-		ListIterator<MethodNode> mns = node.methods.listIterator();
-		String previous = null;
-		while (mns.hasNext()) {
-			MethodNode s = mns.next();
-			if(methodContains("getfield i2l ladd putfield return", s)){
-				if(node.superName.equals(Hook.Class_Entity) && !node.name.equals(Hook.Class_NPC)) {
-					ListIterator<FieldNode> fns = node.fields.listIterator();
-					while (fns.hasNext()) {
-						FieldNode f = fns.next();	
+		for(final Object o : node.methods) { 
+			final MethodNode mn = (MethodNode) o;
+			if(methodContains("getfield i2l ladd putfield return", mn)){
+				if(node.superName.equals(Hook.map.get("Entity")) && !node.name.equals(Hook.map.get("NPC"))) {
+					for(final Object fns : node.fields) { 
+						final FieldNode f = (FieldNode) fns;
 						if(f.desc.equals("J")) {					
-							Hook.Class_Player = node.name;
+							Hook.map.put("Player" , node.name);
 							return true;
 						}
 					}
@@ -41,10 +38,8 @@ public class PlayerTrans extends AbstractTransformer {
 	protected void runTransformer(ClassNode node) {
 		Log("<----Found Class----> " + node.name);
 		JarUtils.injectInterface(node, "com/bot/accessors/PlayerAccessor");
-		ListIterator<FieldNode> fns = node.fields.listIterator();
-
-		while (fns.hasNext()) {
-			FieldNode f = fns.next();	
+		for(final Object fns : node.fields) { 
+			final FieldNode f = (FieldNode) fns;
 			for(String hook : Hook.fields) {
 				if(hook.equals("Name")) {
 					if(f.desc.equals("Ljava/lang/String;")) {
@@ -52,7 +47,7 @@ public class PlayerTrans extends AbstractTransformer {
 					}
 				}
 				if(hook.equals("EntityDef")) {
-					if(f.desc.equals("L" + Hook.Class_EntityDef + ";")) {
+					if(f.desc.equals("L" + Hook.map.get("EntityDef") + ";")) {
 						JarUtils.addGetterMethod(node, f, "getEntityDef", "Lcom/bot/accessors/EntityDef");
 					}
 				}
