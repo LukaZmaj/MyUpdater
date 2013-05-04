@@ -33,40 +33,32 @@ public abstract class AbstractTransformer {
 	}
 
 
-	protected void getHook(ClassNode node, ClassNode injection, String FirstRegex, String SecondRegex,
+	protected void getHook(ClassNode node, ClassNode injection, String firstRegex, String secondRegex,
 			String desc, String methodDesc, String methodName, int index,
 			int sindex) {
-		ListIterator<MethodNode> mns = node.methods.listIterator();
 		String searchResult = null;
 		String secondSearchResult = null;
-		boolean tests = true;
-		while (mns.hasNext()) {
+		for(final Object o : node.methods) { 
+			final MethodNode mn = (MethodNode) o;
 			try{
-				MethodNode s = mns.next();
 				try {
-					searcher = new InsnSearcher(s.instructions);
-					List<AbstractInsnNode[]> result = searcher.search(FirstRegex);
+					searcher = new InsnSearcher(mn.instructions);
+					List<AbstractInsnNode[]> result = searcher.search(firstRegex);
 					if(result.size() != 0){
 						FieldInsnNode f = (FieldInsnNode) result.get(0)[index];				
 						searchResult = f.name;
 					}
-					List<AbstractInsnNode[]> secondResult = searcher.search(FirstRegex);
+					List<AbstractInsnNode[]> secondResult = searcher.search(firstRegex);
 					if(secondResult.size() != 0){
 						FieldInsnNode fs = (FieldInsnNode) secondResult.get(0)[index];
 						secondSearchResult = fs.name;
 					}
-
-				} catch (NullPointerException | ClassCastException  x) {
-				}
-
-
+				} catch (NullPointerException | ClassCastException  x) {}
 			}catch(ConcurrentModificationException fd){}
-
 		}
 		if(searchResult != null) {
 			if(searchResult.equals(secondSearchResult)) {
 				JarUtils.addGetterMethod(injection, secondSearchResult, methodName, methodDesc);
-
 			}
 		}
 	}
@@ -77,42 +69,29 @@ public abstract class AbstractTransformer {
 			if(searcher.search(regex).size() == 1) {
 				return true;
 			}
-		}catch (NullPointerException e) {
-
-		}		
+		}catch (NullPointerException e) {}		
 		return false;
 	}
-	protected String getFieldName(ClassNode node, String FirstRegex, String SecondRegex, int index, int sindex) {
-		ListIterator<MethodNode> mns = node.methods.listIterator();
+	protected String getFieldName(ClassNode node, String firstRegex, String secondRegex, int index, int sindex) {
 		String searchResult = null;
 		String secondSearchResult = null;
-
-		while (mns.hasNext()) {
+		for(final Object o : node.methods) { 
+			final MethodNode mn = (MethodNode) o;
 			try{
-				MethodNode s = mns.next();
 				try {
-					searcher = new InsnSearcher(s.instructions);
-					List<AbstractInsnNode[]> result = searcher.search(FirstRegex);
+					searcher = new InsnSearcher(mn.instructions);
+					List<AbstractInsnNode[]> result = searcher.search(firstRegex);
 					if(result.size() != 0){
 						FieldInsnNode f = (FieldInsnNode) result.get(0)[index];
 						searchResult = f.name;
 					}
-
-					List<AbstractInsnNode[]> secondResult = searcher.search(FirstRegex);
+					List<AbstractInsnNode[]> secondResult = searcher.search(firstRegex);
 					if(secondResult.size() != 0){
 						FieldInsnNode fs = (FieldInsnNode) secondResult.get(0)[index];
 						secondSearchResult = fs.name;
 					}
-
-
-				} catch (NullPointerException | ClassCastException | IndexOutOfBoundsException  x) {
-
-				}
-
+				} catch (NullPointerException | ClassCastException | IndexOutOfBoundsException  x) {}
 			}catch(ConcurrentModificationException fd){}
-			if(searchResult != null) {
-				break;
-			}
 		}
 		if(searchResult != null) {
 			if(searchResult.equals(secondSearchResult)) {
