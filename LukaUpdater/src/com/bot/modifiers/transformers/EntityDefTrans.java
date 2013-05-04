@@ -13,31 +13,28 @@ import com.bot.utils.JarUtils;
 public class EntityDefTrans extends AbstractTransformer {
 	@Override
 	protected boolean canRun(ClassNode node) {
-		ListIterator<MethodNode> mns = node.methods.listIterator();
-		String previous = null;
-		while (mns.hasNext()) {
-			MethodNode s = mns.next();
-			if(methodContains("iadd bipush irem putstatic", s)){
+		for(final Object o : node.methods) { 
+			final MethodNode mn = (MethodNode) o;
+			if(methodContains("iadd bipush irem putstatic", mn)){
 				if(node.superName.equals("java/lang/Object")) {
-					if(methodContains("new dup", s)){
-					ListIterator<FieldNode> fns = node.fields.listIterator();
-					while (fns.hasNext()) {
-						FieldNode f = fns.next();	
-						if(f.desc.equals("[L" + node.name + ";")) {					
-						Hook.map.put("EntityDef" , node.name);
-						return true;
+					if(methodContains("new dup", mn)){
+						for(final Object fns : node.fields) { 
+							final FieldNode f = (FieldNode) fns;
+							if(f.desc.equals("[L" + node.name + ";")) {					
+								Hook.map.put("EntityDef" , node.name);
+								return true;
+							}
 						}
-				}
-				}
+					}
 				}
 			}
-		
+
 		}
 		return false;
 	}
-	
 
-	
+
+
 	@Override
 	protected void runTransformer(ClassNode node) {
 		Log("<----Found Class----> " + node.name);
@@ -56,7 +53,7 @@ public class EntityDefTrans extends AbstractTransformer {
 							JarUtils.addGetterMethod(node, f, "getID", f.desc);
 						}
 					}
-					
+
 				}
 			}
 		}
@@ -64,10 +61,10 @@ public class EntityDefTrans extends AbstractTransformer {
 			if(hook.equals("combatLevel")) {
 				JarUtils.addGetterMethod(node, getFieldName(node, "aastore ALOAD sipush putfield ALOAD sipush", "aastore ALOAD sipush putfield ALOAD sipush", 3,3), "getCombatLevel" , "I");
 			}
-			
-			
+
+
 		}
 	}
-	
-	
+
+
 }

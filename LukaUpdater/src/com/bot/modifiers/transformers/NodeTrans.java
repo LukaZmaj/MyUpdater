@@ -15,7 +15,6 @@ public class NodeTrans extends AbstractTransformer {
 
 	@Override
 	protected boolean canRun(ClassNode node) {
-		String previous = null;
 		for(final Object o : node.methods) { 
 			final MethodNode mn = (MethodNode) o;
 			if(methodContains("getfield ifnonnull goto ALOAD getfield ALOAD getfield putfield ALOAD getfield",  mn)){

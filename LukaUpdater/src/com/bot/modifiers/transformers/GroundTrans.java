@@ -13,11 +13,9 @@ public class GroundTrans extends AbstractTransformer {
 	@Override
 	protected boolean canRun(ClassNode node) {
 	
-		ListIterator<MethodNode> mns = node.methods.listIterator();
-		String previous = null;
-		while (mns.hasNext()) {
-			MethodNode s = mns.next();
-			if(methodContains("iconst_5 anewarray putfield ALOAD iconst_5 newarray", s)){
+		for(final Object o : node.methods) { 
+			final MethodNode mn = (MethodNode) o;
+			if(methodContains("iconst_5 anewarray putfield ALOAD iconst_5 newarray", mn)){
 				if(node.superName.equals(Hook.map.get("Node"))) {
 					Hook.map.put("Ground" , node.name);
 				return true;

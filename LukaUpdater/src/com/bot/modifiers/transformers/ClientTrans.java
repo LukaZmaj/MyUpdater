@@ -26,13 +26,13 @@ public class ClientTrans extends AbstractTransformer {
 		JarUtils.injectInterface(node, "com/bot/accessors/Client");
 		for(String hook : Hook.fields) {
 			if(hook.equals("loggedIn")) {
-						getHook(node , node,"iadd putstatic getstatic ifne", "iadd putstatic getstatic ifne", "Z", "Z", "isLoggedIn", 2, 2);	
+				getHook(node , node,"iadd putstatic getstatic ifne", "iadd putstatic getstatic ifne", "Z", "Z", "isLoggedIn", 2, 2);	
 			}
-		
+
 			if(hook.equals("plane")) {
 				JarUtils.addGetterMethod(node,getFieldName(node, "ALOAD ALOAD ALOAD getfield ALOAD getfield ALOAD", "ALOAD ALOAD ALOAD getfield ALOAD getfield ALOAD", 3, 3), "getPlane", "I");
 			}
-			
+
 			if(hook.equals("cameraX")) {
 				JarUtils.addGetterMethod(node,getFieldName(node, "ALOAD getfield ALOAD getfield aaload ALOAD getfield bipush", "ALOAD getfield ALOAD getfield aaload ALOAD getfield bipush", 6, 6), "getCameraX", "I");
 			}
@@ -41,7 +41,7 @@ public class ClientTrans extends AbstractTransformer {
 
 
 	}
-	
-	}
+
+}
 
 

@@ -14,14 +14,14 @@ import com.bot.utils.JarUtils;
 public class WorldControllerTrans extends AbstractTransformer {
 	@Override
 	protected boolean canRun(ClassNode node) {
-			if(node.superName.equals("java/lang/Object")) {
-				for(final Object fns : node.fields) { 
-					final FieldNode f = (FieldNode) fns;
-					if(f.desc.equals("[[[L" + Hook.map.get("Ground")+ ";")) {		
-						return true;
-					}
+		if(node.superName.equals("java/lang/Object")) {
+			for(final Object fns : node.fields) { 
+				final FieldNode f = (FieldNode) fns;
+				if(f.desc.equals("[[[L" + Hook.map.get("Ground")+ ";")) {		
+					return true;
 				}
 			}
+		}
 		return false;
 	}
 
@@ -43,7 +43,7 @@ public class WorldControllerTrans extends AbstractTransformer {
 							String object5ClassName = f.desc;
 							object5ClassName = object5ClassName.replace("[L", "");
 							object5ClassName = object5ClassName.replace(";", "");
-						Hook.map.put("Obj5", node.name);
+							Hook.map.put("Obj5", node.name);
 						}
 					}
 				}

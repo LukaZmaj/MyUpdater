@@ -15,29 +15,28 @@ public class NodeSubTrans extends AbstractTransformer {
 
 	@Override
 	protected boolean canRun(ClassNode node) {
-		String previous = null;
 		for(final Object o : node.methods) { 
 			final MethodNode mn = (MethodNode) o;
 			if(methodContains("getfield ifnonnull goto ALOAD getfield ALOAD getfield putfield ALOAD getfield", mn)){
 				if(node.superName.equals(Hook.map.get("Node"))){
 					Hook.map.put("NodeSub", node.name);
-				return true;
+					return true;
 				}
 			}
-		
+
 		}
 		return false;
 	}
 
-	
-	
+
+
 	@Override
 	protected void runTransformer(ClassNode node) {
 		Log("<----Found Class----> " + node.name);
 		for(String hook : Hook.fields) {
-			
+
 		}
-		
+
 	}
 
 }

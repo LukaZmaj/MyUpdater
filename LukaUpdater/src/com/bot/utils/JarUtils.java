@@ -135,7 +135,7 @@ public class JarUtils {
 			Updater.fieldsHooked++;
 		}
 	}
-/*	public static void addGetterNonStatic(ClassNode clazz, String field,
+	/*	public static void addGetterNonStatic(ClassNode clazz, String field,
 			String methodName, String desc) {
 		ListIterator<FieldNode> fn = clazz.fields.listIterator();
 		FieldNode t = null;
@@ -179,7 +179,7 @@ public class JarUtils {
 
 	}
 
-*/
+	 */
 	public static void addMethodGetter(ClassNode into, ClassNode baseClass, String method, String name, String desc, String sub) {
 		MethodNode m = new MethodNode(1, name, sub + desc, null, null);
 

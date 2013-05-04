@@ -45,23 +45,23 @@ public abstract class AbstractTransformer {
 				try {
 					searcher = new InsnSearcher(s.instructions);
 					if(searcher.search(FirstRegex) != null) {	
-					if(searcher.search(FirstRegex).size() != 0){
-					FieldInsnNode f = (FieldInsnNode) searcher.search(FirstRegex).get(0)[index];
-					searchResult = f.name;
+						if(searcher.search(FirstRegex).size() != 0){
+							FieldInsnNode f = (FieldInsnNode) searcher.search(FirstRegex).get(0)[index];
+							searchResult = f.name;
+						}
 					}
-				}
-				if(searcher.search(SecondRegex) != null) {	
-					if(searcher.search(SecondRegex).size() != 0){
-					FieldInsnNode fs = (FieldInsnNode) searcher.search(SecondRegex).get(0)[sindex];
-					secondSearchResult = fs.name;
+					if(searcher.search(SecondRegex) != null) {	
+						if(searcher.search(SecondRegex).size() != 0){
+							FieldInsnNode fs = (FieldInsnNode) searcher.search(SecondRegex).get(0)[sindex];
+							secondSearchResult = fs.name;
+						}
 					}
-				}
 				} catch (NullPointerException | ClassCastException  x) {
 				}
 
 
 			}catch(ConcurrentModificationException fd){}
-		
+
 		}
 		if(searchResult != null) {
 			if(searchResult.equals(secondSearchResult)) {
@@ -93,20 +93,20 @@ public abstract class AbstractTransformer {
 				try {
 					searcher = new InsnSearcher(s.instructions);
 					if(searcher.search(FirstRegex) != null) {	
-					if(searcher.search(FirstRegex).size() != 0){
-					FieldInsnNode f = (FieldInsnNode) searcher.search(FirstRegex).get(0)[index];
-					searchResult = f.name;
+						if(searcher.search(FirstRegex).size() != 0){
+							FieldInsnNode f = (FieldInsnNode) searcher.search(FirstRegex).get(0)[index];
+							searchResult = f.name;
+						}
 					}
-				}
-				if(searcher.search(SecondRegex) != null) {	
-					if(searcher.search(SecondRegex).size() != 0){
-					FieldInsnNode fs = (FieldInsnNode) searcher.search(SecondRegex).get(0)[sindex];
-					secondSearchResult = fs.name;
+					if(searcher.search(SecondRegex) != null) {	
+						if(searcher.search(SecondRegex).size() != 0){
+							FieldInsnNode fs = (FieldInsnNode) searcher.search(SecondRegex).get(0)[sindex];
+							secondSearchResult = fs.name;
+						}
 					}
-				}
-					
+
 				} catch (NullPointerException | ClassCastException | IndexOutOfBoundsException  x) {
-				
+
 				}
 
 			}catch(ConcurrentModificationException fd){}

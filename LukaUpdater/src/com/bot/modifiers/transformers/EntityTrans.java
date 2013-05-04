@@ -13,10 +13,9 @@ import com.bot.utils.JarUtils;
 public class EntityTrans extends AbstractTransformer {
 	@Override
 	protected boolean canRun(ClassNode node) {
-		ListIterator<MethodNode> mns = node.methods.listIterator();
-		while (mns.hasNext()) {
-			MethodNode s = mns.next();
-			if(methodContains("iconst_4 if_icmpge ALOAD getfield iload iaload", s)){
+		for(final Object o : node.methods) { 
+			final MethodNode mn = (MethodNode) o;
+			if(methodContains("iconst_4 if_icmpge ALOAD getfield iload iaload", mn)){
 				if(node.superName.equals(Hook.map.get("Animable"))) {
 					Hook.map.put("Entity", node.name);
 					return true;

@@ -16,20 +16,20 @@ public class AnimableTrans extends AbstractTransformer {
 			if(methodContains("ALOAD invokevirtual astore ALOAD ifnull ALOAD", mn)){
 				if(node.superName.equals(Hook.map.get("NodeSub"))) {
 					Hook.map.put("Animable", node.name);
-				return true;
+					return true;
 				}
 			}
-		
+
 		}
 		return false;
 	}
 
-	
-	
+
+
 	@Override
 	protected void runTransformer(ClassNode node) {
 		Log("<----Found Class----> " + node.name);
-		
+
 	}
 
 }
