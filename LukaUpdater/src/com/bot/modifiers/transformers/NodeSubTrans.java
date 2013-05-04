@@ -17,7 +17,7 @@ public class NodeSubTrans extends AbstractTransformer {
 	protected boolean canRun(ClassNode node) {
 		for(final Object o : node.methods) { 
 			final MethodNode mn = (MethodNode) o;
-			if(methodContains("getfield ifnonnull goto ALOAD getfield ALOAD getfield putfield ALOAD getfield", mn)){
+			if(methodContains("getfield ifnonnull goto", mn)){
 				if(node.superName.equals(Hook.map.get("Node"))){
 					Hook.map.put("NodeSub", node.name);
 					return true;
